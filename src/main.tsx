@@ -1,5 +1,6 @@
 import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
+import { HelmetProvider } from "react-helmet-async"
 import App from "./App"
 import { BlogProvider } from "@/context/BlogContext"
 import { AuthProvider } from "@/context/AuthContext"
@@ -16,10 +17,12 @@ getArticles()
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <AuthProvider>
-      <BlogProvider>
-        <App />
-      </BlogProvider>
-    </AuthProvider>
+    <HelmetProvider>
+      <AuthProvider>
+        <BlogProvider>
+          <App />
+        </BlogProvider>
+      </AuthProvider>
+    </HelmetProvider>
   </StrictMode>,
 )

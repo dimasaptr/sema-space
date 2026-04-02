@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom"
 import Container from "@/layouts/Container"
 import BlogActionModal from "@/components/blog/BlogActionModal"
+import SEO from "@/components/SEO"
 import { useAuth } from "@/hooks/useAuth"
 import { useBlog } from "@/hooks/useBlog"
 
@@ -33,22 +34,30 @@ function BlogDetailPage() {
 
   if (!blog) {
     return (
-      <section className="py-24">
-        <Container>
-          <div className="mx-auto max-w-3xl space-y-6 text-center">
-            <p className="text-center text-muted-foreground">
-              Artikel tidak ditemukan
-            </p>
+      <>
+        <SEO
+          title="Artikel Tidak Ditemukan"
+          description="Artikel yang kamu cari tidak tersedia di SEMA Space."
+          url="https://sema-space.vercel.app/blog"
+        />
 
-            <Link
-              to={blogPageHref}
-              className="inline-flex items-center rounded-full border border-border px-5 py-2.5 text-sm text-foreground transition-colors hover:bg-muted"
-            >
-              &larr; Kembali ke Blog
-            </Link>
-          </div>
-        </Container>
-      </section>
+        <section className="py-24">
+          <Container>
+            <div className="mx-auto max-w-3xl space-y-6 text-center">
+              <p className="text-center text-muted-foreground">
+                Artikel tidak ditemukan
+              </p>
+
+              <Link
+                to={blogPageHref}
+                className="inline-flex items-center rounded-full border border-border px-5 py-2.5 text-sm text-foreground transition-colors hover:bg-muted"
+              >
+                &larr; Kembali ke Blog
+              </Link>
+            </div>
+          </Container>
+        </section>
+      </>
     )
   }
 
@@ -77,6 +86,13 @@ function BlogDetailPage() {
 
   return (
     <>
+      <SEO
+        title={blog.title}
+        description={blog.excerpt}
+        keywords={`blog arsitektur, ${blog.title}, desain rumah, sema space`}
+        url={`https://sema-space.vercel.app/blog/${blog.slug}`}
+      />
+
       <BlogActionModal
         isOpen={showDeleteModal}
         title="Hapus artikel ini?"
@@ -185,4 +201,3 @@ function BlogDetailPage() {
 }
 
 export default BlogDetailPage
-
